@@ -2,8 +2,8 @@
      File: PDF_Vals.swift
    Author: Kevin Messina
   Created: 4/26/25
- Modified: 08/21/2026 06:11 PM EDT
-  Version: 2
+ Modified: 08/29/2026 02:53 PM EDT
+  Version: 3
    Source: CODEX: (GPT-5) 🤖AI Code a portion or all of this code.
 
 ©2026 Creative App Solutions, LLC. - All Rights Reserved.
@@ -22,7 +22,9 @@ public struct PDFVals {
     // 72 DPI * size in inches
     public let createdBy = "Created by \( AppInfo().returnCompanyInfo().name )'s \( AppInfo.appName )"
     public let appImg = PDFImage(
-        image: UIImage(named: AppInfo.logo) ?? UIImage(named: "NoPhotoText")!,
+        image: UIImage(named: AppInfo.logo)
+            ?? UIImage(systemName: "photo.badge.exclamationmark")
+            ?? UIImage(),
         size: PDFVals.inlineLogoSize,
         sizeFit: PDFImageSizeFit.widthHeight
     )
@@ -47,11 +49,11 @@ public struct PDFVals {
     }
 
     // Images
-    public static let urlImg = PDFImage(image: UIImage(systemName: "globe")!, size: inlineImgSize)
-    public static let emailImg = PDFImage(image: UIImage(systemName: "envelope")!, size: inlineImgSize)
-    public static let phoneImg = PDFImage(image: UIImage(systemName: "phone.fill")!, size: inlineImgSize)
-    public static let notesImg = PDFImage(image: UIImage(systemName: "note.text")!, size: inlineImgSize)
-    public static let statusNotesImg = PDFImage(image: UIImage(systemName: "questionmark.app.dashed")!, size: inlineImgSize)
+    public static let urlImg = PDFImage(image: UIImage(systemName: "globe") ?? UIImage(systemName: "photo.badge.exclamationmark") ?? UIImage(), size: inlineImgSize)
+    public static let emailImg = PDFImage(image: UIImage(systemName: "envelope") ?? UIImage(systemName: "photo.badge.exclamationmark") ?? UIImage(), size: inlineImgSize)
+    public static let phoneImg = PDFImage(image: UIImage(systemName: "phone.fill") ?? UIImage(systemName: "photo.badge.exclamationmark") ?? UIImage(), size: inlineImgSize)
+    public static let notesImg = PDFImage(image: UIImage(systemName: "note.text") ?? UIImage(systemName: "photo.badge.exclamationmark") ?? UIImage(), size: inlineImgSize)
+    public static let statusNotesImg = PDFImage(image: UIImage(systemName: "questionmark.app.dashed") ?? UIImage(systemName: "photo.badge.exclamationmark") ?? UIImage(), size: inlineImgSize)
     
     public struct bodyValues {
         public let title1: String

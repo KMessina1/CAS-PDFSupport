@@ -257,7 +257,7 @@ public extension PDFVals {
     
     func imgFromResource(_ name: String, imgSize: CGSize =  inlineImgSize) -> PDFImage {
         let img = PDFImage(
-            image: UIImage(named: name) ?? UIImage(named: "NoPhotoText")!,
+            image: UIImage(named: name) ?? UIImage(systemName: "photo.badge.exclamationmark") ?? UIImage(),
             size: imgSize,
             sizeFit: PDFImageSizeFit.widthHeight
         )
@@ -269,7 +269,7 @@ public extension PDFVals {
     -> (img: PDFImage, uImg: UIImage,  orientation: orientationType, size: CGSize, sizeFit: PDFImageSizeFit)
     {
         let filePath = Files().getPathForFilename(fileName, in: dir).path
-        let imgFile: UIImage = UIImage(contentsOfFile: filePath) ?? UIImage(named: "NoPhotoText")!
+        let imgFile = UIImage(contentsOfFile: filePath) ?? UIImage(systemName: "photo.badge.exclamationmark") ?? UIImage()
         let imgFileSize: CGSize = imgFile.size
         var imgSize: CGSize = thumbnailSize_Square
         var sizeFit: PDFImageSizeFit = PDFImageSizeFit.widthHeight
@@ -294,4 +294,3 @@ public extension PDFVals {
         return (img: img, uImg: imgFile, orientation: orientation, size: imgSize, sizeFit: sizeFit)
     }
 }
-

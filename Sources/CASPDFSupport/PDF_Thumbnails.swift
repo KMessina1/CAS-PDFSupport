@@ -21,7 +21,7 @@ public func PDF_GenerateUIImage(
     size thumbnailSize: CGSize = CGSize(width: 80, height: 100),
     atPage pageIndex: Int = 0
 ) -> UIImage {
-    let noImageFile: UIImage = UIImage(named: "NoPhotoText")!
+    let noImageFile = UIImage(systemName: "photo.badge.exclamationmark") ?? UIImage()
     let documentURL: URL = Files().getPathForFilename(filename, in: inDir).url
     let pdfDocument = PDFDocument(url: documentURL)
     let pdfDocumentPage = pdfDocument?.page(at: pageIndex)
@@ -59,7 +59,7 @@ public func PDF_GenerateUIImageWithResults(
     size thumbnailSize: CGSize = CGSize(width: 80, height: 100),
     atPage pageIndex: Int = 0
 ) -> (uiImage: UIImage, success: Bool) {
-    let noImageFile: UIImage = UIImage(named: "NoPhotoText")!
+    let noImageFile = UIImage(systemName: "photo.badge.exclamationmark") ?? UIImage()
     let pdfDocument = PDFDocument(url: fileURL)
     let pdfDocumentPage = pdfDocument?.page(at: pageIndex)
     let pdfImage = pdfDocumentPage?.thumbnail(of: thumbnailSize, for: PDFDisplayBox.trimBox)
