@@ -2,6 +2,12 @@
 
 Reusable PDF viewing, thumbnail, import, export, and report-generation support for Creative App Solutions applications.
 
+## What's New
+
+### 1.1.3
+
+Image loading changes.
+
 ## Requirements
 
 - Xcode 26 or newer
