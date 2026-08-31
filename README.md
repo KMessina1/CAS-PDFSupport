@@ -4,7 +4,7 @@ Reusable PDF viewing, thumbnail, import, export, and report-generation support f
 
 ## What's New
 
-### 1.1.3
+### 1.1.4
 
 Image loading changes.
 
