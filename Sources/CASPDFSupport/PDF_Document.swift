@@ -2,8 +2,8 @@
      File: PDF_Document.swift
    Author: Kevin Messina
   Created: 4/26/25
- Modified: 08/21/2026 06:12 PM EDT
-  Version: 3
+ Modified: 09/01/2026 10:42 PM EDT
+  Version: 4
    Source: CODEX: (GPT-5) 🤖AI Code a portion or all of this code.
 
 ©2026 Creative App Solutions, LLC. - All Rights Reserved.
@@ -22,7 +22,13 @@ public extension PDFVals {
     
     // MARK: - *** DOCUMENT FUNCTIONS ***
     func generatePDF(doc: PDFDocument, filename: String) {
-        let url = Files().returnPathForFilename(filename, in: .reportsDir).url
+        generatePDF(doc: doc, filename: filename, in: .reportsDir)
+    }
+
+    /// Generates a PDF in the requested app-support directory.
+    /// The existing overload remains reports-backed for compatibility.
+    func generatePDF(doc: PDFDocument, filename: String, in directory: Files.directories) {
+        let url = Files().returnPathForFilename(filename, in: directory).url
         let generator = PDFGenerator(document: doc)
         
         do {
