@@ -2,8 +2,8 @@
      File: PDF_Viewer.swift
    Author: Kevin Messina
   Created: 6/19/22
- Modified: 08/21/2026 06:13 PM EDT
-  Version: 7
+ Modified: 11/01/2026 03:08 PM EST
+  Version: 8
    Source: CODEX: (GPT-5) 🤖AI Code a portion or all of this code.
  
 ©2026 Creative App Solutions, LLC. - All Rights Reserved.
@@ -37,6 +37,10 @@ public struct PDFViewer<BackgroundView: View>: View {
     private let pdfName: String
     private let backgroundView: BackgroundView
     private let txtColor: Color
+    private let needsPurchasable: Bool
+    private let subscriptionDestination: AnyView?
+    @State private var showSubscriptionRequired = false
+    @State private var showSubscriptions = false
     private let isRemoteFile: Bool
     private let pdfData: Data?
 
@@ -52,12 +56,16 @@ public struct PDFViewer<BackgroundView: View>: View {
         backgroundView: BackgroundView,
         txtColor: Color,
         isRemoteFile: Bool = false,
-        pdfData: Data? = nil
+        pdfData: Data? = nil,
+        needsPurchasable: Bool = false,
+        subscriptionDestination: AnyView? = nil
     ) {
         self.pdfURL = pdfURL
         self.pdfName = pdfName
         self.backgroundView = backgroundView
         self.txtColor = txtColor
+        self.needsPurchasable = needsPurchasable
+        self.subscriptionDestination = subscriptionDestination
         self.isRemoteFile = isRemoteFile
         self.pdfData = pdfData
     }
@@ -137,6 +145,10 @@ public struct PDFViewer<BackgroundView: View>: View {
 
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
+                        guard !needsPurchasable else {
+                            showSubscriptionRequired = true
+                            return
+                        }
                         showShareSheet.toggle()
                     } label: {
                         TB().buttonImg(.share)
@@ -147,6 +159,19 @@ public struct PDFViewer<BackgroundView: View>: View {
             .sheet(isPresented: $showShareSheet, content: {
                 ActivityViewController(itemsToShare: [pdfURL])
             })
+            .alert("Subscription Required", isPresented: $showSubscriptionRequired) {
+                if subscriptionDestination != nil {
+                    Button("Subscriptions") { showSubscriptions = true }
+                }
+                Button("Cancel", role: .cancel) { }
+            } message: {
+                Text("This choice requires a subscription.")
+            }
+            .navigationDestination(isPresented: $showSubscriptions) {
+                if let subscriptionDestination {
+                    subscriptionDestination
+                }
+            }
             .onAppear {
                 if isRemoteFile {
                     DispatchQueue.main.async {
